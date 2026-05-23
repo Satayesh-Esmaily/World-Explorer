@@ -1,14 +1,16 @@
-﻿import { notFound } from "next/navigation";
+import { notFound } from "next/navigation";
+import NextLink from "next/link";
 import { Country } from "@/app/types/country";
-import { Box, Card, CardContent, Container, Link, Stack, Typography } from "@mui/material";
+import { Box, Button, Card, CardContent, Container, Link, Stack, Typography } from "@mui/material";
 
 type PageProps = {
-  params: Promise<{ code: string }>;
+  params: { code: string };
 };
 
 export default async function CountryDetailsPage({ params }: PageProps) {
-  const { code } = await params;
+  const { code } = params;
 
+  // This page fetches fresh data every time.
   const res = await fetch(
     `https://restcountries.com/v3.1/alpha/${code}?fields=cca3,name,capital,region,subregion,population,flags,languages,currencies,timezones,maps`,
     { cache: "no-store" }
@@ -28,6 +30,12 @@ export default async function CountryDetailsPage({ params }: PageProps) {
     <Container maxWidth="md" sx={{ py: 6 }}>
       <Card>
         <CardContent>
+          <NextLink href="/countries" style={{ textDecoration: "none" }}>
+            <Button variant="outlined" color="inherit" sx={{ mb: 2 }}>
+              Back to Countries
+            </Button>
+          </NextLink>
+
           <Typography variant="h4" sx={{ mb: 3 }}>{country.name.common}</Typography>
           {flagSrc ? (
             <Box component="img" src={flagSrc} alt={country.name.common} sx={{ width: "100%", maxHeight: 420, objectFit: "cover", borderRadius: 2, border: "1px solid", borderColor: "divider", mb: 3 }} />

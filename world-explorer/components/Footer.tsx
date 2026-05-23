@@ -2,10 +2,10 @@
 
 export default function Footer() {
   return (
-    <Box component="footer" sx={{ borderTop: "1px solid", borderColor: "divider", mt: 8, py: 3, backgroundColor: "#f6f7f9" }}>
+    <Box component="footer" sx={{ borderTop: "1px solid", borderColor: "divider", mt: 10, py: 4, backgroundColor: "#f3f4f6" }}>
       <Container maxWidth="lg">
         <Typography variant="body2" color="text.secondary" sx={{ textAlign: "center" }}>
-          © 2026 World Explorer
+          © 2026 World Explorer.
         </Typography>
       </Container>
     </Box>

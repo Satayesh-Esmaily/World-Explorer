@@ -5,7 +5,7 @@ import MuiProvider from "@/components/MuiProvider";
 
 export const metadata = {
   title: "World Explorer",
-  description: "Explore countries around the world",
+  description: "A Next.js country explorer project for Week 13 and Week 14",
 };
 
 export default function RootLayout({
@@ -25,4 +25,3 @@ export default function RootLayout({
     </html>
   );
 }
-export const dynamic = "force-dynamic";
