@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { Country } from "@/app/types/country";
 
@@ -17,7 +18,7 @@ export default function CountrySearch({ countries }: Props) {
   const filtered = countries.filter((c) =>
     c.name.common.toLowerCase().includes(search.toLowerCase())
   );
-
+    
   return (
     <div>
       <input
@@ -28,12 +29,42 @@ export default function CountrySearch({ countries }: Props) {
       />
 
       <div className="grid md:grid-cols-3 gap-4">
-        {filtered.map((c) => (
-          <div key={c.cca3} className="p-4 border rounded">
-            <img src={c.flags.png} alt={c.name.common} />
-            <h2>{c.name.common}</h2>
-          </div>
-        ))}
+        {filtered.map((c) => {
+          const png = c.flags?.png;
+          const svg = c.flags?.svg;
+          const hasFlag = Boolean(png || svg);
+
+          return (
+            <div key={c.cca3} className="p-4 border rounded">
+              {hasFlag ? (
+                <img
+                  src={png || svg || ""}
+                  alt={c.name.common}
+                  className="h-40 w-full object-cover"
+                  onError={(e) => {
+                    const img = e.currentTarget;
+                    if (svg && img.src !== svg) {
+                      img.src = svg;
+                      return;
+                    }
+                    img.style.display = "none";
+                  }}
+                />
+              ) : (
+                <div className="h-40 flex items-center justify-center bg-gray-200">
+                  No Image
+                </div>
+              )}
+              <h2>{c.name.common}</h2>
+              <Link
+                href={`/countries/${c.cca3}`}
+                className="inline-block mt-3 bg-blue-600 text-white px-4 py-2 rounded"
+              >
+                View Details
+              </Link>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

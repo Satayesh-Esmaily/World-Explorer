@@ -8,8 +8,9 @@ export type Country = {
   region: string;
   subregion?: string;
   population: number;
-  flags: {
-    png: string;
+  flags?: {
+    png?: string;
+    svg?: string;
   };
   languages?: Record<string, string>;
   currencies?: Record<
