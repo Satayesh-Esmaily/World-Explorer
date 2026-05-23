@@ -3,17 +3,19 @@
 import { useState } from "react";
 import { Country } from "@/app/types/country";
 
-export default function CountrySearch({
-  countries,
-}: {
+type Props = {
   countries: Country[];
-}) {
+};
+
+export default function CountrySearch({ countries }: Props) {
   const [search, setSearch] = useState("");
 
+  if (!countries || countries.length === 0) {
+    return <p>No countries found</p>;
+  }
+
   const filtered = countries.filter((c) =>
-    c.name.common
-      .toLowerCase()
-      .includes(search.toLowerCase())
+    c.name.common.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
@@ -27,14 +29,9 @@ export default function CountrySearch({
 
       <div className="grid md:grid-cols-3 gap-4">
         {filtered.map((c) => (
-          <div
-            key={c.cca3}
-            className="bg-white p-4 rounded shadow"
-          >
-            <img src={c.flags.png} />
-            <h2 className="font-bold mt-2">
-              {c.name.common}
-            </h2>
+          <div key={c.cca3} className="p-4 border rounded">
+            <img src={c.flags.png} alt={c.name.common} />
+            <h2>{c.name.common}</h2>
           </div>
         ))}
       </div>
