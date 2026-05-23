@@ -6,13 +6,23 @@ export default function CountryCard({
 }: {
   country: Country;
 }) {
+  const png = country.flags?.png;
+  const svg = country.flags?.svg;
+  const hasFlag = Boolean(png || svg);
+
   return (
     <div className="bg-white shadow rounded overflow-hidden hover:scale-105 transition">
-      <img
-        src={country.flags.png}
-        alt={country.name.common}
-        className="h-48 w-full object-cover"
-      />
+      {hasFlag ? (
+        <img
+          src={svg || png || ""}
+          alt={country.name.common}
+          className="h-48 w-full object-cover"
+        />
+      ) : (
+        <div className="h-48 w-full flex items-center justify-center bg-gray-200">
+          No Image
+        </div>
+      )}
 
       <div className="p-4">
         <h2 className="font-bold text-xl">
