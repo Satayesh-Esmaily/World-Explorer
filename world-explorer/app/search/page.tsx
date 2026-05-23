@@ -3,10 +3,12 @@ import { Country } from "@/app/types/country";
 import { Card, CardContent, Container, Typography } from "@mui/material";
 
 export default async function SearchPage() {
-  const res = await fetch(
-    "https://restcountries.com/v3.1/all?fields=cca3,name,capital,region,population,flags",
-    { cache: "no-store" }
-  );
+const res = await fetch(
+  "https://restcountries.com/v3.1/all?fields=cca3,name,flags",
+  {
+    cache: "force-cache",
+  }
+);
 
   if (!res.ok) {
     throw new Error("Failed to fetch countries");
