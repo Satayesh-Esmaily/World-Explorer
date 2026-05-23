@@ -1,8 +1,14 @@
+﻿import { Card, CardContent, Container, Typography } from "@mui/material";
+
 export default function NotFound() {
   return (
-    <div className="text-center p-10">
-      <h1 className="text-3xl font-bold">404</h1>
-      <p>Page Not Found</p>
-    </div>
+    <Container maxWidth="sm" sx={{ py: 8 }}>
+      <Card>
+        <CardContent sx={{ textAlign: "center", py: 6 }}>
+          <Typography variant="h3" sx={{ mb: 1 }}>404</Typography>
+          <Typography color="text.secondary">Page Not Found</Typography>
+        </CardContent>
+      </Card>
+    </Container>
   );
 }

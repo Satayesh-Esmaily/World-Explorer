@@ -1,71 +1,72 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { useState } from "react";
 import { Country } from "@/app/types/country";
+import { Box, Button, Card, CardContent, CardMedia, Grid, Stack, TextField, Typography } from "@mui/material";
 
-type Props = {
-  countries: Country[];
-};
+type Props = { countries: Country[] };
 
 export default function CountrySearch({ countries }: Props) {
   const [search, setSearch] = useState("");
 
   if (!countries || countries.length === 0) {
-    return <p>No countries found</p>;
+    return <Typography color="text.secondary">No countries found</Typography>;
   }
 
-  const filtered = countries.filter((c) =>
-    c.name.common.toLowerCase().includes(search.toLowerCase())
-  );
-    
+  const filtered = countries.filter((c) => c.name.common.toLowerCase().includes(search.toLowerCase()));
+
   return (
-    <div>
-      <input
-        className="border p-3 w-full mb-6"
+    <Stack spacing={3}>
+      <TextField
+        fullWidth
         placeholder="Search country..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
 
-      <div className="grid md:grid-cols-3 gap-4">
+      <Grid container spacing={3}>
         {filtered.map((c) => {
           const png = c.flags?.png;
           const svg = c.flags?.svg;
           const hasFlag = Boolean(png || svg);
 
           return (
-            <div key={c.cca3} className="p-4 border rounded">
-              {hasFlag ? (
-                <img
-                  src={png || svg || ""}
-                  alt={c.name.common}
-                  className="h-40 w-full object-cover"
-                  onError={(e) => {
-                    const img = e.currentTarget;
-                    if (svg && img.src !== svg) {
-                      img.src = svg;
-                      return;
-                    }
-                    img.style.display = "none";
-                  }}
-                />
-              ) : (
-                <div className="h-40 flex items-center justify-center bg-gray-200">
-                  No Image
-                </div>
-              )}
-              <h2>{c.name.common}</h2>
-              <Link
-                href={`/countries/${c.cca3}`}
-                className="inline-block mt-3 bg-blue-600 text-white px-4 py-2 rounded"
-              >
-                View Details
-              </Link>
-            </div>
+            <Grid key={c.cca3} size={{ xs: 12, md: 6, lg: 4 }}>
+              <Card sx={{ height: "100%" }}>
+                {hasFlag ? (
+                  <CardMedia
+                    component="img"
+                    image={png || svg || ""}
+                    alt={c.name.common}
+                    sx={{ height: 170 }}
+                    onError={(e) => {
+                      const img = e.currentTarget;
+                      if (svg && img.src !== svg) {
+                        img.src = svg;
+                        return;
+                      }
+                      img.style.display = "none";
+                    }}
+                  />
+                ) : (
+                  <Box sx={{ height: 170, bgcolor: "grey.100", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <Typography color="text.secondary">No Image</Typography>
+                  </Box>
+                )}
+                <CardContent>
+                  <Typography variant="h6" sx={{ mb: 2 }}>{c.name.common}</Typography>
+                  <Link href={`/countries/${c.cca3}`} style={{ textDecoration: "none" }}>
+                    <Button variant="outlined" color="inherit">
+                      View Details
+                    </Button>
+                  </Link>
+                </CardContent>
+              </Card>
+            </Grid>
           );
         })}
-      </div>
-    </div>
+      </Grid>
+    </Stack>
   );
 }

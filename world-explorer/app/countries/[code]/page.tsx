@@ -1,10 +1,9 @@
-import { notFound } from "next/navigation";
+﻿import { notFound } from "next/navigation";
 import { Country } from "@/app/types/country";
+import { Box, Card, CardContent, Container, Link, Stack, Typography } from "@mui/material";
 
 type PageProps = {
-  params: Promise<{
-    code: string;
-  }>;
+  params: Promise<{ code: string }>;
 };
 
 export default async function CountryDetailsPage({ params }: PageProps) {
@@ -15,80 +14,44 @@ export default async function CountryDetailsPage({ params }: PageProps) {
     { cache: "no-store" }
   );
 
-  if (!res.ok) {
-    notFound();
-  }
+  if (!res.ok) notFound();
 
   const data = await res.json();
   const country: Country | undefined = Array.isArray(data) ? data[0] : data;
+  if (!country) notFound();
 
-  if (!country) {
-    notFound();
-  }
-
-  const flagSrc = country.flags?.png || country.flags?.svg;
-  const currencyNames = country.currencies
-    ? Object.values(country.currencies)
-        .map((c) => c.name)
-        .join(", ")
-    : "N/A";
-  const languageNames = country.languages
-    ? Object.values(country.languages).join(", ")
-    : "N/A";
+  const flagSrc = country.flags?.svg || country.flags?.png;
+  const currencyNames = country.currencies ? Object.values(country.currencies).map((c) => c.name).join(", ") : "N/A";
+  const languageNames = country.languages ? Object.values(country.languages).join(", ") : "N/A";
 
   return (
-    <main className="max-w-4xl mx-auto">
-      <h1 className="text-4xl font-bold mb-6">{country.name.common}</h1>
+    <Container maxWidth="md" sx={{ py: 6 }}>
+      <Card>
+        <CardContent>
+          <Typography variant="h4" sx={{ mb: 3 }}>{country.name.common}</Typography>
+          {flagSrc ? (
+            <Box component="img" src={flagSrc} alt={country.name.common} sx={{ width: "100%", maxHeight: 420, objectFit: "cover", borderRadius: 2, border: "1px solid", borderColor: "divider", mb: 3 }} />
+          ) : (
+            <Box sx={{ height: 220, borderRadius: 2, bgcolor: "grey.100", display: "grid", placeItems: "center", mb: 3 }}>
+              <Typography color="text.secondary">No Image</Typography>
+            </Box>
+          )}
 
-      {flagSrc ? (
-        <img
-          src={flagSrc}
-          alt={country.name.common}
-          className="w-full max-h-96 object-cover rounded mb-6"
-        />
-      ) : (
-        <div className="h-56 rounded bg-gray-200 flex items-center justify-center mb-6">
-          No Image
-        </div>
-      )}
-
-      <div className="space-y-2 text-lg">
-        <p>
-          <strong>Official Name:</strong> {country.name.official}
-        </p>
-        <p>
-          <strong>Capital:</strong> {country.capital?.[0] || "N/A"}
-        </p>
-        <p>
-          <strong>Region:</strong> {country.region}
-        </p>
-        <p>
-          <strong>Subregion:</strong> {country.subregion || "N/A"}
-        </p>
-        <p>
-          <strong>Population:</strong> {country.population.toLocaleString()}
-        </p>
-        <p>
-          <strong>Currencies:</strong> {currencyNames}
-        </p>
-        <p>
-          <strong>Languages:</strong> {languageNames}
-        </p>
-        <p>
-          <strong>Timezones:</strong> {country.timezones.join(", ")}
-        </p>
-        <p>
-          <strong>Map:</strong>{" "}
-          <a
-            href={country.maps.googleMaps}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-600 underline"
-          >
-            Open in Google Maps
-          </a>
-        </p>
-      </div>
-    </main>
+          <Stack spacing={1.2}>
+            <Typography><strong>Official Name:</strong> {country.name.official}</Typography>
+            <Typography><strong>Capital:</strong> {country.capital?.[0] || "N/A"}</Typography>
+            <Typography><strong>Region:</strong> {country.region}</Typography>
+            <Typography><strong>Subregion:</strong> {country.subregion || "N/A"}</Typography>
+            <Typography><strong>Population:</strong> {country.population.toLocaleString()}</Typography>
+            <Typography><strong>Currencies:</strong> {currencyNames}</Typography>
+            <Typography><strong>Languages:</strong> {languageNames}</Typography>
+            <Typography><strong>Timezones:</strong> {country.timezones.join(", ")}</Typography>
+            <Typography>
+              <strong>Map:</strong> <Link href={country.maps.googleMaps} target="_blank" rel="noopener">Open in Google Maps</Link>
+            </Typography>
+          </Stack>
+        </CardContent>
+      </Card>
+    </Container>
   );
 }

@@ -1,5 +1,6 @@
-import CountrySearch from "@/components/CountrySearch";
+﻿import CountrySearch from "@/components/CountrySearch";
 import { Country } from "@/app/types/country";
+import { Card, CardContent, Container, Typography } from "@mui/material";
 
 export default async function SearchPage() {
   const res = await fetch(
@@ -14,12 +15,14 @@ export default async function SearchPage() {
   const countries: Country[] = await res.json();
 
   return (
-    <main>
-      <h1 className="text-3xl font-bold mb-6 text-center">
-        Search Countries
-      </h1>
-
+    <Container maxWidth="lg" sx={{ py: 6 }}>
+      <Card sx={{ mb: 4 }}>
+        <CardContent>
+          <Typography variant="h4">Search Countries</Typography>
+          <Typography color="text.secondary" sx={{ mt: 1 }}>Find countries instantly by name.</Typography>
+        </CardContent>
+      </Card>
       <CountrySearch countries={countries} />
-    </main>
+    </Container>
   );
 }
