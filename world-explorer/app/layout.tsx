@@ -1,4 +1,4 @@
-﻿import "./globals.css";
+import "../styles/globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import MuiProvider from "@/components/MuiProvider";
@@ -25,3 +25,4 @@ export default function RootLayout({
     </html>
   );
 }
+

@@ -4,15 +4,15 @@ import { Country } from "@/app/types/country";
 import { Box, Button, Card, CardContent, Container, Link, Stack, Typography } from "@mui/material";
 
 type PageProps = {
-  params: Promise<{ code: string }>;
+  params: { code: string };
 };
 
 export default async function CountryDetailsPage({
   params,
 }: PageProps) {
-  const { code } = await params;
+  const { code } = params;
 
-
+  // This page fetches fresh data every time.
   const res = await fetch(
     `https://restcountries.com/v3.1/alpha/${code}?fields=cca3,name,capital,region,subregion,population,flags,languages,currencies,timezones,maps`,
     { cache: "no-store" }
