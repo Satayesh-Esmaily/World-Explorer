@@ -25,7 +25,9 @@ export default function AboutPage() {
           <Typography variant="h6" sx={{ mt: 3, mb: 1.5 }}>API Used</Typography>
           <Typography color="text.secondary">
             REST Countries API (
-            <Link href="https://restcountries.com" target="_blank" rel="noopener">https://restcountries.com</Link>
+            <Link href="https://restcountries.com" target="_blank" rel="noopener" sx={{ color: "#8ec5ff", "&:hover": { color: "#b7dbff" } }}>
+              https://restcountries.com
+            </Link>
             )
           </Typography>
         </CardContent>

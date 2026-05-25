@@ -5,12 +5,14 @@
 @tailwind utilities;
 
 :root {
-  --bg: #f6f6f7;
-  --surface: #ffffff;
-  --surface-soft: #fafafa;
-  --text: #111111;
-  --muted: #666666;
-  --line: #e4e4e7;
+  --bg: #040b14;
+  --surface: #071423;
+  --surface-soft: #0a1a2b;
+  --text: #e8f1fb;
+  --muted: #9fb3c8;
+  --line: #17314b;
+  --navy: #071423;
+  --green: #12b76a;
 }
 
 * {
@@ -18,7 +20,7 @@
 }
 
 body {
-  background: var(--bg);
+  background: #040b14;
   color: var(--text);
   font-family: "Manrope", sans-serif;
   line-height: 1.6;
@@ -35,6 +37,6 @@ img {
 }
 
 ::selection {
-  background: #ffffff;
-  color: #000000;
+  background: #12b76a;
+  color: #04130d;
 }

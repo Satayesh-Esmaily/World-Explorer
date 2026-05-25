@@ -1,6 +1,6 @@
-﻿import CountryCard from "@/components/CountryCard";
+import CountriesExplorer from "@/components/CountriesExplorer";
 import { Country } from "@/app/types/country";
-import { Box, Card, CardContent, Container, Grid, Typography } from "@mui/material";
+import { Box, Card, CardContent, Container, Typography } from "@mui/material";
 
 export default async function CountriesPage() {
   // This page can be statically rendered and cached.
@@ -20,7 +20,7 @@ export default async function CountriesPage() {
             <div>
               <Typography variant="h4">Countries</Typography>
               <Typography color="text.secondary" sx={{ mt: 1 }}>
-                Browse a curated set of countries with clean detail cards.
+                Browse countries with region filters and population sorting.
               </Typography>
             </div>
             <Typography variant="h5" sx={{ alignSelf: { xs: "flex-start", md: "center" } }}>
@@ -33,13 +33,7 @@ export default async function CountriesPage() {
       {countries.length === 0 ? (
         <Typography color="text.secondary" align="center">No countries loaded</Typography>
       ) : (
-        <Grid container spacing={3}>
-          {countries.slice(0, 20).map((country) => (
-            <Grid key={country.cca3} size={{ xs: 12, sm: 6, lg: 3 }}>
-              <CountryCard country={country} />
-            </Grid>
-          ))}
-        </Grid>
+        <CountriesExplorer countries={countries} />
       )}
     </Container>
   );

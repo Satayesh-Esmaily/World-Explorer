@@ -5,17 +5,18 @@ import { ReactNode } from "react";
 
 const theme = createTheme({
   palette: {
-    mode: "light",
-    primary: { main: "#111111" },
+    mode: "dark",
+    primary: { main: "#071423" },
+    secondary: { main: "#12b76a" },
     background: {
-      default: "#f3f4f6",
-      paper: "#ffffff",
+      default: "#040b14",
+      paper: "#071423",
     },
     text: {
-      primary: "#111111",
-      secondary: "#5f6368",
+      primary: "#e8f1fb",
+      secondary: "#9fb3c8",
     },
-    divider: "#e5e7eb",
+    divider: "#17314b",
   },
   shape: {
     borderRadius: 14,
@@ -31,8 +32,8 @@ const theme = createTheme({
     MuiCard: {
       styleOverrides: {
         root: {
-          border: "1px solid #e5e7eb",
-          boxShadow: "0 1px 2px rgba(16,24,40,0.04)",
+          border: "1px solid #17314b",
+          boxShadow: "0 8px 24px rgba(1, 9, 20, 0.45)",
         },
       },
     },

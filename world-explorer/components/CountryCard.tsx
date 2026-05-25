@@ -23,7 +23,7 @@ export default function CountryCard({ country }: { country: Country }) {
           <Typography variant="body2" color="text.secondary">Capital: {country.capital?.[0] || "N/A"}</Typography>
           <Typography variant="body2" color="text.secondary">Population: {country.population.toLocaleString()}</Typography>
           <Link href={`/countries/${country.cca3}`} style={{ textDecoration: "none", width: "fit-content" }}>
-            <Button variant="outlined" color="inherit" sx={{ mt: 1 }}>
+            <Button variant="contained" color="inherit" sx={{ mt: 1, backgroundColor: "#12b76a", color: "#04130d", "&:hover": { backgroundColor: "#0ea55f" } }}>
               View Details
             </Button>
           </Link>

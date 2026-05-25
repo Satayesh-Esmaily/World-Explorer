@@ -15,11 +15,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
+      <body suppressHydrationWarning style={{ minHeight: "100vh" }}>
         <MuiProvider>
-          <Navbar />
-          <main>{children}</main>
-          <Footer />
+          <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
+            <Navbar />
+            <main style={{ flex: 1 }}>{children}</main>
+            <Footer />
+          </div>
         </MuiProvider>
       </body>
     </html>
