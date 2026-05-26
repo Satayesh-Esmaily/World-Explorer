@@ -16,6 +16,9 @@ World Explorer is a Next.js project that allows users to explore countries aroun
 - Search functionality
 - Region filter and sorting
 - Load more countries (20 at a time)
+- Favorite countries (saved in `localStorage`)
+- Favorites sidebar drawer (open from the heart icon in Navbar)
+- Favorites-only toggle on countries/search pages
 - Loading state (`app/countries/loading.tsx`)
 - Custom 404 page (`app/not-found.tsx`)
 
@@ -84,6 +87,9 @@ components/
   CountriesExplorer.tsx
   country-filter-types.ts
   country-filter-utils.ts
+  FavoritesProvider.tsx
+  useFavorites.ts
+  FavoritesDrawer.tsx
   PageHeaderCard.tsx
   PrimaryActionButton.tsx
 
