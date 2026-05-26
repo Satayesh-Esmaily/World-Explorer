@@ -94,16 +94,12 @@ app/types/
 ## Run Locally
 
 ```bash
+clone repo      https://github.com/Satayesh-Esmaily/World-Explorer.git
+cd world-explorer
 npm install
 npm run dev
 ```
 
-## Build
-
-```bash
-npm run build
-npm start
-```
 
 ## Learning Goals Practiced
 
@@ -117,3 +113,38 @@ This project practices:
 - Server/client component patterns
 - Data fetching and caching strategies
 - Responsive UI design
+
+## Screenshots
+
+      Home Page
+  <img width="1920" height="1008" alt="image" src="https://github.com/user-attachments/assets/d4b0cc31-740b-4a86-8027-f023a6925926" />
+
+      Countries Page 
+  <img width="1920" height="1020" alt="image" src="https://github.com/user-attachments/assets/9c7458e7-1c2c-4db4-9ba3-791c0e7cf4dd" />
+
+      Country Details Page
+  <img width="1920" height="1029" alt="image" src="https://github.com/user-attachments/assets/5578cbf7-873a-4f0c-a762-4494405f6cd9" />
+
+       Search Page
+  <img width="1920" height="1024" alt="image" src="https://github.com/user-attachments/assets/6ec28b6f-80bb-434a-b7b2-6b246e3f66f9" />
+
+       About Page
+  <img width="1920" height="1019" alt="image" src="https://github.com/user-attachments/assets/3cd87f17-06ff-4ac5-8857-651c59c9d3f1" />
+
+      
+
+## Mobile View
+
+      Home Page
+   <img width="322" height="691" alt="image" src="https://github.com/user-attachments/assets/31206a89-90c4-4b63-9707-0fcb32c9be56" />
+
+      Countries Page
+   <img width="327" height="702" alt="image" src="https://github.com/user-attachments/assets/a92d2766-85ba-4dd7-9179-91610e06c4af" />
+
+      Country Details Page
+   <img width="322" height="693" alt="image" src="https://github.com/user-attachments/assets/49c1b38d-bcef-499a-96a1-3799ab448e12" />
+
+     
+
+  
+
