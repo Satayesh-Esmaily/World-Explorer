@@ -2,6 +2,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import MuiProvider from "@/components/MuiProvider";
+import EmotionRegistry from "@/components/EmotionRegistry";
 
 export const metadata = {
   title: "World Explorer",
@@ -20,14 +21,19 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <meta name="emotion-insertion-point" content="" />
+      </head>
       <body suppressHydrationWarning style={{ minHeight: "100vh" }}>
-        <MuiProvider>
-          <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
-            <Navbar />
-            <main style={{ flex: 1 }}>{children}</main>
-            <Footer />
-          </div>
-        </MuiProvider>
+        <EmotionRegistry>
+          <MuiProvider>
+            <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
+              <Navbar />
+              <main style={{ flex: 1 }}>{children}</main>
+              <Footer />
+            </div>
+          </MuiProvider>
+        </EmotionRegistry>
       </body>
     </html>
   );
