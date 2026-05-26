@@ -2,7 +2,8 @@ import { notFound } from "next/navigation";
 import NextLink from "next/link";
 import type { Metadata } from "next";
 import { Country } from "@/app/types/country";
-import { Box, Button, Card, CardContent, Chip, Container, Grid, Link, Typography } from "@mui/material";
+import PrimaryActionButton from "@/components/PrimaryActionButton";
+import { Box, Card, CardContent, Chip, Container, Grid, Link, Typography } from "@mui/material";
 
 type PageProps = {
   params: Promise<{ code: string }>;
@@ -67,9 +68,9 @@ export default async function CountryDetailsPage({
         <CardContent sx={{ p: { xs: 2.5, md: 4 } }}>
           <Box sx={{ mb: 3, display: "flex", flexDirection: { xs: "column", sm: "row" }, justifyContent: "space-between", alignItems: { xs: "flex-start", sm: "center" }, gap: 2 }}>
             <NextLink href="/countries" style={{ textDecoration: "none" }}>
-              <Button variant="contained" color="inherit" sx={{ backgroundColor: "#12b76a", color: "#04130d", "&:hover": { backgroundColor: "#0ea55f" } }}>
+              <PrimaryActionButton>
                 Back to Countries
-              </Button>
+              </PrimaryActionButton>
             </NextLink>
             <Chip label={country.region || "Country"} sx={{ bgcolor: "rgba(16,42,67,0.75)", color: "#dbe7f3", border: "1px solid #17314b" }} />
           </Box>

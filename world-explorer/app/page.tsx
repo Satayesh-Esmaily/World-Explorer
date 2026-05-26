@@ -1,4 +1,5 @@
-﻿import Link from "next/link";
+import Link from "next/link";
+import PrimaryActionButton from "@/components/PrimaryActionButton";
 import { Box, Button, Card, CardContent, Container, Typography } from "@mui/material";
 
 export default function HomePage() {
@@ -13,9 +14,9 @@ export default function HomePage() {
           </Typography>
           <Box sx={{ display: "flex", flexDirection: { xs: "column", sm: "row" }, gap: 1.5 }}>
             <Link href="/countries" style={{ textDecoration: "none" }}>
-              <Button variant="contained" color="inherit" sx={{ backgroundColor: "#12b76a", color: "#04130d", px: 3.2, py: 1.2, '&:hover': { backgroundColor: "#0ea55f" } }}>
+              <PrimaryActionButton sx={{ px: 3.2, py: 1.2 }}>
                 Explore Countries
-              </Button>
+              </PrimaryActionButton>
             </Link>
             <Link href="/search" style={{ textDecoration: "none" }}>
               <Button variant="outlined" color="inherit" sx={{ px: 3.2, py: 1.2, borderColor: "rgba(255,255,255,0.5)", color: "#fff", "&:hover": { borderColor: "#fff", backgroundColor: "rgba(255,255,255,0.08)" } }}>

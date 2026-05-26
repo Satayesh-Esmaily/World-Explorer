@@ -1,6 +1,7 @@
 ﻿import Link from "next/link";
 import { Country } from "@/app/types/country";
-import { Box, Button, Card, CardContent, CardMedia, Chip, Stack, Typography } from "@mui/material";
+import PrimaryActionButton from "@/components/PrimaryActionButton";
+import { Box, Card, CardContent, CardMedia, Chip, Stack, Typography } from "@mui/material";
 
 export default function CountryCard({ country }: { country: Country }) {
   const png = country.flags?.png;
@@ -23,9 +24,9 @@ export default function CountryCard({ country }: { country: Country }) {
           <Typography variant="body2" color="text.secondary">Capital: {country.capital?.[0] || "N/A"}</Typography>
           <Typography variant="body2" color="text.secondary">Population: {country.population.toLocaleString()}</Typography>
           <Link href={`/countries/${country.cca3}`} style={{ textDecoration: "none", width: "fit-content" }}>
-            <Button variant="contained" color="inherit" sx={{ mt: 1, backgroundColor: "#12b76a", color: "#04130d", "&:hover": { backgroundColor: "#0ea55f" } }}>
+            <PrimaryActionButton sx={{ mt: 1 }}>
               View Details
-            </Button>
+            </PrimaryActionButton>
           </Link>
         </Stack>
       </CardContent>

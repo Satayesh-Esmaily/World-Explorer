@@ -1,11 +1,12 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Country } from "@/app/types/country";
 import CountryCard from "@/components/CountryCard";
 import CountryFilters from "@/components/CountryFilters";
 import { RegionFilter, SortOrder } from "@/components/country-filter-types";
 import { Grid, Stack, Typography } from "@mui/material";
+import PrimaryActionButton from "@/components/PrimaryActionButton";
 
 type Props = {
   countries: Country[];
@@ -14,6 +15,7 @@ type Props = {
 export default function CountriesExplorer({ countries }: Props) {
   const [region, setRegion] = useState<RegionFilter>("All");
   const [sortOrder, setSortOrder] = useState<SortOrder>("name-asc");
+  const [visibleCount, setVisibleCount] = useState(20);
 
   const visibleCountries = useMemo(() => {
     const filtered = countries.filter((country) => {
@@ -29,6 +31,13 @@ export default function CountriesExplorer({ countries }: Props) {
 
     return sorted;
   }, [countries, region, sortOrder]);
+
+  useEffect(() => {
+    setVisibleCount(20);
+  }, [region, sortOrder]);
+
+  const displayedCountries = visibleCountries.slice(0, visibleCount);
+  const hasMore = visibleCount < visibleCountries.length;
 
   return (
     <Stack spacing={3}>
@@ -49,13 +58,22 @@ export default function CountriesExplorer({ countries }: Props) {
         </Typography>
       ) : (
         <Grid container spacing={3}>
-          {visibleCountries.map((country) => (
+          {displayedCountries.map((country) => (
             <Grid key={country.cca3} size={{ xs: 12, sm: 6, lg: 3 }}>
               <CountryCard country={country} />
             </Grid>
           ))}
         </Grid>
       )}
+
+      {hasMore ? (
+        <PrimaryActionButton
+          sx={{ alignSelf: "center", px: 3, py: 1 }}
+          onClick={() => setVisibleCount((prev) => prev + 20)}
+        >
+          Load More
+        </PrimaryActionButton>
+      ) : null}
     </Stack>
   );
 }
