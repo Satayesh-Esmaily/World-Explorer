@@ -117,7 +117,7 @@ This project practices:
 ## Screenshots
 
       Home Page
-  <img width="1920" height="1008" alt="image" src="https://github.com/user-attachments/assets/d4b0cc31-740b-4a86-8027-f023a6925926" />
+  <img width="1920" height="1040" alt="image" src="https://github.com/user-attachments/assets/9b7cf6e7-2681-4410-932d-7275acbaf64d" />
 
       Countries Page 
   <img width="1920" height="1020" alt="image" src="https://github.com/user-attachments/assets/9c7458e7-1c2c-4db4-9ba3-791c0e7cf4dd" />
@@ -136,7 +136,7 @@ This project practices:
 ## Mobile View
 
       Home Page
-   <img width="322" height="691" alt="image" src="https://github.com/user-attachments/assets/31206a89-90c4-4b63-9707-0fcb32c9be56" />
+   <img width="323" height="695" alt="image" src="https://github.com/user-attachments/assets/def32d52-c8c9-47c5-a352-378476009bef" />
 
       Countries Page
    <img width="327" height="702" alt="image" src="https://github.com/user-attachments/assets/a92d2766-85ba-4dd7-9179-91610e06c4af" />
