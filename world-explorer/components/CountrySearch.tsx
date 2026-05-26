@@ -6,7 +6,8 @@ import CountryCard from "@/components/CountryCard";
 import CountryFilters from "@/components/CountryFilters";
 import { RegionFilter, SortOrder } from "@/components/country-filter-types";
 import { filterAndSortCountries } from "@/components/country-filter-utils";
-import { Alert, Grid, Stack, TextField, Typography } from "@mui/material";
+import useFavorites from "@/components/useFavorites";
+import { Alert, FormControlLabel, Grid, Stack, Switch, TextField, Typography } from "@mui/material";
 
 type Props = { countries: Country[] };
 
@@ -15,6 +16,8 @@ export default function CountrySearch({ countries }: Props) {
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const [region, setRegion] = useState<RegionFilter>("All");
   const [sortOrder, setSortOrder] = useState<SortOrder>("name-asc");
+  const [favoritesOnly, setFavoritesOnly] = useState(false);
+  const { favorites } = useFavorites();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -28,16 +31,17 @@ export default function CountrySearch({ countries }: Props) {
     return <Typography color="text.secondary">No countries found</Typography>;
   }
 
-  const filtered = useMemo(
-    () =>
-      filterAndSortCountries({
-        countries,
-        region,
-        sortOrder,
-        query: debouncedSearch,
-      }),
-    [countries, debouncedSearch, region, sortOrder]
-  );
+  const filtered = useMemo(() => {
+    const base = filterAndSortCountries({
+      countries,
+      region,
+      sortOrder,
+      query: debouncedSearch,
+    });
+    if (!favoritesOnly) return base;
+    const set = new Set(favorites);
+    return base.filter((c) => set.has(c.cca3));
+  }, [countries, debouncedSearch, favorites, favoritesOnly, region, sortOrder]);
 
   return (
     <Stack spacing={3}>
@@ -58,6 +62,23 @@ export default function CountrySearch({ countries }: Props) {
           setRegion("All");
           setSortOrder("name-asc");
         }}
+      />
+      <FormControlLabel
+        control={
+          <Switch
+            color="secondary"
+            checked={favoritesOnly}
+            onChange={(e) => setFavoritesOnly(e.target.checked)}
+            disabled={favorites.length === 0}
+            sx={{
+              "& .MuiSwitch-track": { backgroundColor: "rgba(159,179,200,0.35)" },
+              "& .MuiSwitch-thumb": { backgroundColor: "#e8f1fb" },
+              "&.Mui-checked .MuiSwitch-thumb": { backgroundColor: "#12b76a" },
+              "&.Mui-checked + .MuiSwitch-track": { backgroundColor: "rgba(18,183,106,0.45)" },
+            }}
+          />
+        }
+        label={`Favorites only (${favorites.length})`}
       />
       <Typography color="text.secondary">
         Showing {filtered.length} of {countries.length} countries

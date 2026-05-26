@@ -5,7 +5,10 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
-import { AppBar, Box, Button, Chip, Container, Drawer, IconButton, Stack, Toolbar, Typography } from "@mui/material";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import { AppBar, Badge, Box, Button, Chip, Container, Drawer, IconButton, Stack, Toolbar, Typography } from "@mui/material";
+import useFavorites from "@/components/useFavorites";
+import FavoritesDrawer from "@/components/FavoritesDrawer";
 
 const links = [
   { href: "/", label: "Home" },
@@ -17,6 +20,8 @@ const links = [
 export default function Navbar() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [favoritesOpen, setFavoritesOpen] = useState(false);
+  const { favorites } = useFavorites();
   const currentSection =
     links.find((item) => item.href === pathname)?.label ??
     (pathname.startsWith("/countries/") ? "Country Details" : "World Explorer");
@@ -56,14 +61,22 @@ export default function Navbar() {
             })}
           </Box>
 
-          <IconButton
-            color="inherit"
-            sx={{ display: { xs: "inline-flex", md: "none" } }}
-            aria-label="open menu"
-            onClick={() => setMobileOpen(true)}
-          >
-            <MenuIcon />
-          </IconButton>
+          <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
+            <IconButton color="inherit" aria-label="favorites" onClick={() => setFavoritesOpen(true)}>
+              <Badge color="secondary" badgeContent={favorites.length} max={99}>
+                <FavoriteBorderIcon />
+              </Badge>
+            </IconButton>
+
+            <IconButton
+              color="inherit"
+              sx={{ display: { xs: "inline-flex", md: "none" } }}
+              aria-label="open menu"
+              onClick={() => setMobileOpen(true)}
+            >
+              <MenuIcon />
+            </IconButton>
+          </Box>
         </Toolbar>
       </Container>
 
@@ -92,6 +105,8 @@ export default function Navbar() {
           })}
         </Stack>
       </Drawer>
+
+      <FavoritesDrawer open={favoritesOpen} onClose={() => setFavoritesOpen(false)} />
     </AppBar>
   );
 }

@@ -3,6 +3,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import MuiProvider from "@/components/MuiProvider";
 import EmotionRegistry from "@/components/EmotionRegistry";
+import FavoritesProvider from "@/components/FavoritesProvider";
 
 export const metadata = {
   title: "World Explorer",
@@ -26,13 +27,15 @@ export default function RootLayout({
       </head>
       <body suppressHydrationWarning style={{ minHeight: "100vh" }}>
         <EmotionRegistry>
-          <MuiProvider>
-            <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
-              <Navbar />
-              <main style={{ flex: 1 }}>{children}</main>
-              <Footer />
-            </div>
-          </MuiProvider>
+          <FavoritesProvider>
+            <MuiProvider>
+              <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
+                <Navbar />
+                <main style={{ flex: 1 }}>{children}</main>
+                <Footer />
+              </div>
+            </MuiProvider>
+          </FavoritesProvider>
         </EmotionRegistry>
       </body>
     </html>
