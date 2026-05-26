@@ -117,32 +117,36 @@ This project practices:
 ## Screenshots
 
       Home Page
-  <img width="1920" height="1040" alt="image" src="https://github.com/user-attachments/assets/9b7cf6e7-2681-4410-932d-7275acbaf64d" />
+  <img width="1920" height="1013" alt="image" src="https://github.com/user-attachments/assets/c57ba9fd-af1d-4770-8dbb-3b991e3b5ab3" />
 
       Countries Page 
-  <img width="1920" height="1020" alt="image" src="https://github.com/user-attachments/assets/9c7458e7-1c2c-4db4-9ba3-791c0e7cf4dd" />
+  <img width="1920" height="1010" alt="image" src="https://github.com/user-attachments/assets/7feb8b9f-4519-4f33-a293-8c0dd7943141" />
 
       Country Details Page
-  <img width="1920" height="1029" alt="image" src="https://github.com/user-attachments/assets/5578cbf7-873a-4f0c-a762-4494405f6cd9" />
+  <img width="1584" height="1018" alt="image" src="https://github.com/user-attachments/assets/b0731f84-8dff-4d7d-9786-360d5891ebc2" />
 
        Search Page
-  <img width="1920" height="1024" alt="image" src="https://github.com/user-attachments/assets/6ec28b6f-80bb-434a-b7b2-6b246e3f66f9" />
+  <img width="1920" height="1020" alt="image" src="https://github.com/user-attachments/assets/641ff453-3d2b-4f63-b065-1ab0e33471e8" />
 
        About Page
-  <img width="1920" height="1019" alt="image" src="https://github.com/user-attachments/assets/3cd87f17-06ff-4ac5-8857-651c59c9d3f1" />
+  <img width="1920" height="1033" alt="image" src="https://github.com/user-attachments/assets/99bae33b-ba21-4afb-8e12-fdd3b05b00a6" />
+
+       Favorite Drawer
+  <img width="440" height="951" alt="image" src="https://github.com/user-attachments/assets/91756e1e-d753-42e7-afaa-5499e04d77ed" />
+
 
       
-
 ## Mobile View
 
       Home Page
-   <img width="323" height="695" alt="image" src="https://github.com/user-attachments/assets/def32d52-c8c9-47c5-a352-378476009bef" />
+   <img width="322" height="693" alt="image" src="https://github.com/user-attachments/assets/b2f82c2d-d8ec-4f25-a404-c57daffdc1d2" />
 
       Countries Page
-   <img width="327" height="702" alt="image" src="https://github.com/user-attachments/assets/a92d2766-85ba-4dd7-9179-91610e06c4af" />
+   <img width="314" height="694" alt="image" src="https://github.com/user-attachments/assets/bebba78c-36cd-4065-8903-a14f765cfc73" />
 
       Country Details Page
-   <img width="322" height="693" alt="image" src="https://github.com/user-attachments/assets/49c1b38d-bcef-499a-96a1-3799ab448e12" />
+   <img width="319" height="699" alt="image" src="https://github.com/user-attachments/assets/26147aa9-73f2-4b33-9696-c962fb80df9b" />
+
 
      
 
