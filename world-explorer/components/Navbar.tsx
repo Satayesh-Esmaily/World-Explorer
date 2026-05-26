@@ -1,10 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
-import PublicIcon from "@mui/icons-material/Public";
 import { AppBar, Box, Button, Chip, Container, Drawer, IconButton, Stack, Toolbar, Typography } from "@mui/material";
 
 const links = [
@@ -26,7 +26,7 @@ export default function Navbar() {
       <Container maxWidth="lg">
         <Toolbar disableGutters sx={{ minHeight: 74, gap: 2, justifyContent: "space-between" }}>
           <Box sx={{ display: "flex", alignItems: "center", gap: 1.2 }}>
-            <PublicIcon fontSize="small" sx={{ color: "#0a1a2b" }} />
+            <Image src="/favicon.png" alt="World Explorer logo" width={24} height={24} />
             <Link href="/" style={{ textDecoration: "none" }}>
               <Typography variant="h6" sx={{ color: "text.primary" }}>
                 World Explorer

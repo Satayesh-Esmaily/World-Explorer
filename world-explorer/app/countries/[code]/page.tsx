@@ -91,6 +91,7 @@ export default async function CountryDetailsPage({
             <Grid size={{ xs: 12, md: 6 }}>
               <Grid container spacing={1.4}>
                 <Grid size={{ xs: 12, sm: 6 }}><InfoItem label="Capital" value={country.capital?.[0] || "N/A"} /></Grid>
+                <Grid size={{ xs: 12, sm: 6 }}><InfoItem label="Region" value={country.region || "N/A"} /></Grid>
                 <Grid size={{ xs: 12, sm: 6 }}><InfoItem label="Subregion" value={country.subregion || "N/A"} /></Grid>
                 <Grid size={{ xs: 12, sm: 6 }}><InfoItem label="Population" value={country.population.toLocaleString()} /></Grid>
                 <Grid size={{ xs: 12, sm: 6 }}><InfoItem label="Timezones" value={country.timezones.join(", ")} /></Grid>

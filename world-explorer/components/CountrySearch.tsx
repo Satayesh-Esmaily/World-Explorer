@@ -1,37 +1,19 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { Country } from "@/app/types/country";
-import { Alert, Box, Button, Card, CardContent, CardMedia, Grid, Stack, TextField, Typography } from "@mui/material";
+import CountryCard from "@/components/CountryCard";
+import CountryFilters from "@/components/CountryFilters";
+import { RegionFilter, SortOrder } from "@/components/country-filter-types";
+import { Alert, Grid, Stack, TextField, Typography } from "@mui/material";
 
 type Props = { countries: Country[] };
-
-function highlightMatch(text: string, query: string) {
-  const trimmed = query.trim();
-  if (!trimmed) return text;
-
-  const lowerText = text.toLowerCase();
-  const lowerQuery = trimmed.toLowerCase();
-  const start = lowerText.indexOf(lowerQuery);
-
-  if (start === -1) return text;
-
-  const end = start + trimmed.length;
-  return (
-    <>
-      {text.slice(0, start)}
-      <Box component="mark" sx={{ backgroundColor: "rgba(159,179,200,0.2)", color: "inherit", px: 0.5, borderRadius: 0.5 }}>
-        {text.slice(start, end)}
-      </Box>
-      {text.slice(end)}
-    </>
-  );
-}
 
 export default function CountrySearch({ countries }: Props) {
   const [searchInput, setSearchInput] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
+  const [region, setRegion] = useState<RegionFilter>("All");
+  const [sortOrder, setSortOrder] = useState<SortOrder>("name-asc");
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -47,9 +29,21 @@ export default function CountrySearch({ countries }: Props) {
 
   const filtered = useMemo(() => {
     const query = debouncedSearch.toLowerCase().trim();
-    if (!query) return countries;
-    return countries.filter((c) => c.name.common.toLowerCase().includes(query));
-  }, [countries, debouncedSearch]);
+    const byName = !query
+      ? countries
+      : countries.filter((c) => c.name.common.toLowerCase().includes(query));
+
+    const byRegion = byName.filter((c) => {
+      if (region === "All") return true;
+      return c.region === region;
+    });
+
+    return [...byRegion].sort((a, b) => {
+      if (sortOrder === "population-desc") return b.population - a.population;
+      if (sortOrder === "population-asc") return a.population - b.population;
+      return a.name.common.localeCompare(b.name.common);
+    });
+  }, [countries, debouncedSearch, region, sortOrder]);
 
   return (
     <Stack spacing={3}>
@@ -59,53 +53,31 @@ export default function CountrySearch({ countries }: Props) {
         value={searchInput}
         onChange={(e) => setSearchInput(e.target.value)}
       />
+      <CountryFilters
+        region={region}
+        sortOrder={sortOrder}
+        onRegionChange={setRegion}
+        onSortChange={setSortOrder}
+        onClear={() => {
+          setSearchInput("");
+          setDebouncedSearch("");
+          setRegion("All");
+          setSortOrder("name-asc");
+        }}
+      />
+      <Typography color="text.secondary">
+        Showing {filtered.length} of {countries.length} countries
+      </Typography>
 
       {filtered.length === 0 ? (
         <Alert severity="info">No results found for "{debouncedSearch.trim()}".</Alert>
       ) : (
         <Grid container spacing={3}>
-          {filtered.map((c) => {
-            const png = c.flags?.png;
-            const svg = c.flags?.svg;
-            const hasFlag = Boolean(png || svg);
-
-            return (
-              <Grid key={c.cca3} size={{ xs: 12, md: 6, lg: 4 }}>
-                <Card sx={{ height: "100%" }}>
-                  {hasFlag ? (
-                    <CardMedia
-                      component="img"
-                      image={png || svg || ""}
-                      alt={c.name.common}
-                      sx={{ height: 170 }}
-                      onError={(e) => {
-                        const img = e.currentTarget;
-                        if (svg && img.src !== svg) {
-                          img.src = svg;
-                          return;
-                        }
-                        img.style.display = "none";
-                      }}
-                    />
-                  ) : (
-                    <Box sx={{ height: 170, bgcolor: "grey.100", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                      <Typography color="text.secondary">No Image</Typography>
-                    </Box>
-                  )}
-                  <CardContent>
-                    <Typography variant="h6" sx={{ mb: 2 }}>
-                      {highlightMatch(c.name.common, debouncedSearch)}
-                    </Typography>
-                    <Link href={`/countries/${c.cca3}`} style={{ textDecoration: "none" }}>
-                      <Button variant="contained" color="inherit" sx={{ backgroundColor: "#12b76a", color: "#04130d", "&:hover": { backgroundColor: "#0ea55f" } }}>
-                        View Details
-                      </Button>
-                    </Link>
-                  </CardContent>
-                </Card>
-              </Grid>
-            );
-          })}
+          {filtered.map((country) => (
+            <Grid key={country.cca3} size={{ xs: 12, sm: 6, lg: 4 }}>
+              <CountryCard country={country} />
+            </Grid>
+          ))}
         </Grid>
       )}
     </Stack>
