@@ -5,6 +5,7 @@ import { Country } from "@/app/types/country";
 import CountryCard from "@/components/CountryCard";
 import CountryFilters from "@/components/CountryFilters";
 import { RegionFilter, SortOrder } from "@/components/country-filter-types";
+import { filterAndSortCountries } from "@/components/country-filter-utils";
 import { Grid, Stack, Typography } from "@mui/material";
 import PrimaryActionButton from "@/components/PrimaryActionButton";
 
@@ -17,20 +18,10 @@ export default function CountriesExplorer({ countries }: Props) {
   const [sortOrder, setSortOrder] = useState<SortOrder>("name-asc");
   const [visibleCount, setVisibleCount] = useState(20);
 
-  const visibleCountries = useMemo(() => {
-    const filtered = countries.filter((country) => {
-      if (region === "All") return true;
-      return country.region === region;
-    });
-
-    const sorted = [...filtered].sort((a, b) => {
-      if (sortOrder === "population-desc") return b.population - a.population;
-      if (sortOrder === "population-asc") return a.population - b.population;
-      return a.name.common.localeCompare(b.name.common);
-    });
-
-    return sorted;
-  }, [countries, region, sortOrder]);
+  const visibleCountries = useMemo(
+    () => filterAndSortCountries({ countries, region, sortOrder }),
+    [countries, region, sortOrder]
+  );
 
   useEffect(() => {
     setVisibleCount(20);

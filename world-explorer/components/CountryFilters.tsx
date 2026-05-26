@@ -2,7 +2,7 @@
 
 import { Button, FormControl, Grid, InputLabel, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 import RegionFilterControl from "@/components/RegionFilter";
-import { RegionFilter, SortOrder } from "@/components/country-filter-types";
+import { RegionFilter, SORT_OPTIONS, SortOrder } from "@/components/country-filter-types";
 
 type Props = {
   region: RegionFilter;
@@ -10,6 +10,12 @@ type Props = {
   onRegionChange: (value: RegionFilter) => void;
   onSortChange: (value: SortOrder) => void;
   onClear: () => void;
+};
+
+const SORT_LABELS: Record<SortOrder, string> = {
+  "name-asc": "Name (A-Z)",
+  "population-desc": "Population (High-Low)",
+  "population-asc": "Population (Low-High)",
 };
 
 export default function CountryFilters({
@@ -34,9 +40,11 @@ export default function CountryFilters({
             label="Sort"
             onChange={(e: SelectChangeEvent<SortOrder>) => onSortChange(e.target.value as SortOrder)}
           >
-            <MenuItem value="name-asc">Name (A-Z)</MenuItem>
-            <MenuItem value="population-desc">Population (High-Low)</MenuItem>
-            <MenuItem value="population-asc">Population (Low-High)</MenuItem>
+            {SORT_OPTIONS.map((option) => (
+              <MenuItem key={option} value={option}>
+                {SORT_LABELS[option]}
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>
       </Grid>

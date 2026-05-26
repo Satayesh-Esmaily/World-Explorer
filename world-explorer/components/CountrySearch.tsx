@@ -5,6 +5,7 @@ import { Country } from "@/app/types/country";
 import CountryCard from "@/components/CountryCard";
 import CountryFilters from "@/components/CountryFilters";
 import { RegionFilter, SortOrder } from "@/components/country-filter-types";
+import { filterAndSortCountries } from "@/components/country-filter-utils";
 import { Alert, Grid, Stack, TextField, Typography } from "@mui/material";
 
 type Props = { countries: Country[] };
@@ -27,23 +28,16 @@ export default function CountrySearch({ countries }: Props) {
     return <Typography color="text.secondary">No countries found</Typography>;
   }
 
-  const filtered = useMemo(() => {
-    const query = debouncedSearch.toLowerCase().trim();
-    const byName = !query
-      ? countries
-      : countries.filter((c) => c.name.common.toLowerCase().includes(query));
-
-    const byRegion = byName.filter((c) => {
-      if (region === "All") return true;
-      return c.region === region;
-    });
-
-    return [...byRegion].sort((a, b) => {
-      if (sortOrder === "population-desc") return b.population - a.population;
-      if (sortOrder === "population-asc") return a.population - b.population;
-      return a.name.common.localeCompare(b.name.common);
-    });
-  }, [countries, debouncedSearch, region, sortOrder]);
+  const filtered = useMemo(
+    () =>
+      filterAndSortCountries({
+        countries,
+        region,
+        sortOrder,
+        query: debouncedSearch,
+      }),
+    [countries, debouncedSearch, region, sortOrder]
+  );
 
   return (
     <Stack spacing={3}>
